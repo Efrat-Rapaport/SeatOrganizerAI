@@ -12,7 +12,7 @@ def my_face_recognition(train_path, test_image):
     images = os.listdir(train_path)
     for _ in images:
         image = fr.load_image_file(train_path + "\\" + _)
-        image_path = path + "\\" + _
+        image_path = train_path + "\\" + _
         encoding = fr.face_encodings(image)[0]
 
         known_name_encodings.append(encoding)

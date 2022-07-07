@@ -4,11 +4,9 @@ from http.server import HTTPServer
 import time
 from urllib.parse import urlparse, parse_qs
 import json
-import numpy as np
 from flask import Flask
 import pyodbc
 import ast
-import pandas as pd
 import faceRecognitionModel
 
 hostName = "127.0.0.1"
@@ -38,22 +36,21 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", 'application/json')
         self.end_headers()
         if "sentiment" in self.path:
-            guest_id=faceRecognitionModel.my_face_recognition(train_path, test_path)
+            guest_id=faceRecognitionModel.my_face_recognition(train_path[0], test_path[0])
             print(guest_id)
         self.send_response(200)
         self.end_headers()
 
-        Dictionary = {1: 'Welcome', 2: 'to',
-                      3: 'server', 4: 'for',
-                      5: 'python'}
-
-        # Converts input dictionary into
-        # string and stores it in json_string
-        json_content = json.dumps(Dictionary)
-
-        # json_content = json.dumps("the function/ model response", ensure_ascii=False)  # json.dumps(res)
-        print(json_content)
-        self.wfile.write(bytes(str(json_content), "utf-8"))
+        # Dictionary = {1: 'Welcome', 2: 'to',
+        #               3: 'server', 4: 'for',}
+        #
+        # # Converts input dictionary into
+        # # string and stores it in json_string
+        # json_content = json.dumps(Dictionary)
+        #
+        # # json_content = json.dumps("the function/ model response", ensure_ascii=False)  # json.dumps(res)
+        # print(json_content)
+        self.wfile.write(bytes(str(guest_id), "utf-8"))
         return
 
 

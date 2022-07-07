@@ -6,7 +6,7 @@ import os
 
 def my_face_recognition(train_path, test_image):
     # path = r"C:\Users\Nechama\Downloads\face-recognition-python-code\train"
-
+    print("in fr!" +train_path +", "+ test_image)
     known_names = []
     known_name_encodings = []
     images = os.listdir(train_path)
@@ -39,4 +39,6 @@ def my_face_recognition(train_path, test_image):
 
         if matches[best_match]:
             name = known_names[best_match]
+    print(name)
     return name
+

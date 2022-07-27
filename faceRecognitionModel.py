@@ -15,10 +15,11 @@ def my_face_recognition(train_path, test_image):
         image_path = train_path + "\\" + _
         try:
             encoding = fr.face_encodings(image)[0]
+            known_name_encodings.append(encoding)
+            known_names.append(os.path.splitext(os.path.basename(image_path))[0].capitalize())
         except:
             return -1
-        known_name_encodings.append(encoding)
-        known_names.append(os.path.splitext(os.path.basename(image_path))[0].capitalize())
+
 
     print(known_names)
     # test_image = r"C:\Users\Nechama\Downloads\face-recognition-python-code\test\test.jpg"

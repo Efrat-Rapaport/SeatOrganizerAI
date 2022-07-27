@@ -13,8 +13,10 @@ def my_face_recognition(train_path, test_image):
     for _ in images:
         image = fr.load_image_file(train_path + "\\" + _)
         image_path = train_path + "\\" + _
-        encoding = fr.face_encodings(image)[0]
-
+        try:
+            encoding = fr.face_encodings(image)[0]
+        except:
+            return -1
         known_name_encodings.append(encoding)
         known_names.append(os.path.splitext(os.path.basename(image_path))[0].capitalize())
 
@@ -29,10 +31,10 @@ def my_face_recognition(train_path, test_image):
 
     face_locations = fr.face_locations(image)
     face_encodings = fr.face_encodings(image, face_locations)
-
+    name="non"
     for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
         matches = fr.compare_faces(known_name_encodings, face_encoding)
-        name = ""
+        # name = ""
 
         face_distances = fr.face_distance(known_name_encodings, face_encoding)
         best_match = np.argmin(face_distances)
@@ -41,4 +43,5 @@ def my_face_recognition(train_path, test_image):
             name = known_names[best_match]
     print(name)
     return name
+# print(my_face_recognition(r"C:\aMahatProject\project20_6\ourProject\ourProject\Resources\GuestFaces\331", r"C:\aMahatProject\project20_6\ourProject\ourProject\Resources\GuestFaces\331\168.jpg"))
 
